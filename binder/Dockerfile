@@ -2,7 +2,7 @@ FROM jupyter/base-notebook
 
 USER root
 RUN apt-get update && apt-get install -y libicu-dev
-USER $NB_USER
+USER ${NB_USER}
 
 # Install .NET SDK to jovyan's home directory
 RUN wget https://dot.net/v1/dotnet-install.sh \
@@ -24,4 +24,6 @@ WORKDIR /home/jovyan
 EXPOSE 8888
 
 COPY . ${HOME}
-RUN chmod -R u+rwX ${HOME}
+USER root
+RUN chown -R ${NB_UID}:${NB_GID} ${HOME}
+USER ${NB_USER}
