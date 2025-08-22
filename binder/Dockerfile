@@ -24,3 +24,4 @@ WORKDIR /home/jovyan
 EXPOSE 8888
 
 COPY . ${HOME}
+RUN chmod -R u+rwX ${HOME}
